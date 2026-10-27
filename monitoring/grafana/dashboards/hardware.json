@@ -1,0 +1,101 @@
+{
+    "id":  null,
+    "uid":  "spring-boot-hardware",
+    "title":  "Hardware",
+    "description":  "Process CPU usage for the Spring Boot workload.",
+    "tags":  [
+                 "spring-boot",
+                 "hardware",
+                 "cpu"
+             ],
+    "timezone":  "browser",
+    "schemaVersion":  39,
+    "version":  1,
+    "editable":  false,
+    "refresh":  "5s",
+    "time":  {
+                 "to":  "now",
+                 "from":  "now-15m"
+             },
+    "timepicker":  {
+                       "refresh_intervals":  [
+                                                 "5s",
+                                                 "10s",
+                                                 "30s",
+                                                 "1m",
+                                                 "5m"
+                                             ]
+                   },
+    "templating":  {
+                       "list":  [
+
+                                ]
+                   },
+    "annotations":  {
+                        "list":  [
+
+                                 ]
+                    },
+    "panels":  [
+                   {
+                       "id":  4,
+                       "type":  "timeseries",
+                       "title":  "Process CPU usage",
+                       "datasource":  {
+                                          "type":  "prometheus",
+                                          "uid":  "prometheus"
+                                      },
+                       "gridPos":  {
+                                       "y":  0,
+                                       "w":  24,
+                                       "h":  8,
+                                       "x":  0
+                                   },
+                       "fieldConfig":  {
+                                           "defaults":  {
+                                                            "custom":  {
+                                                                           "fillOpacity":  10,
+                                                                           "lineInterpolation":  "linear",
+                                                                           "spanNulls":  false,
+                                                                           "drawStyle":  "line",
+                                                                           "lineWidth":  1
+                                                                       },
+                                                            "color":  {
+                                                                          "mode":  "palette-classic"
+                                                                      },
+                                                            "min":  0,
+                                                            "unit":  "percentunit"
+                                                        },
+                                           "overrides":  [
+
+                                                         ]
+                                       },
+                       "options":  {
+                                       "legend":  {
+                                                      "placement":  "bottom",
+                                                      "calcs":  [
+
+                                                                ],
+                                                      "displayMode":  "list"
+                                                  },
+                                       "tooltip":  {
+                                                       "sort":  "none",
+                                                       "mode":  "multi"
+                                                   }
+                                   },
+                       "targets":  [
+                                       {
+                                           "legendFormat":  "{{instance}}",
+                                           "expr":  "process_cpu_usage{job=\"spring-boot\"}",
+                                           "refId":  "A",
+                                           "datasource":  {
+                                                              "type":  "prometheus",
+                                                              "uid":  "prometheus"
+                                                          },
+                                           "editorMode":  "code",
+                                           "range":  true
+                                       }
+                                   ]
+                   }
+               ]
+}

@@ -1,0 +1,160 @@
+{
+    "id":  null,
+    "uid":  "spring-boot-http",
+    "title":  "HTTP Requests",
+    "description":  "Request rate and average response time for the /work endpoint. Generate traffic and allow at least a minute for rate graphs.",
+    "tags":  [
+                 "spring-boot",
+                 "http"
+             ],
+    "timezone":  "browser",
+    "schemaVersion":  39,
+    "version":  1,
+    "editable":  false,
+    "refresh":  "5s",
+    "time":  {
+                 "to":  "now",
+                 "from":  "now-15m"
+             },
+    "timepicker":  {
+                       "refresh_intervals":  [
+                                                 "5s",
+                                                 "10s",
+                                                 "30s",
+                                                 "1m",
+                                                 "5m"
+                                             ]
+                   },
+    "templating":  {
+                       "list":  [
+
+                                ]
+                   },
+    "annotations":  {
+                        "list":  [
+
+                                 ]
+                    },
+    "panels":  [
+                   {
+                       "id":  5,
+                       "type":  "timeseries",
+                       "title":  "/work requests per second",
+                       "datasource":  {
+                                          "type":  "prometheus",
+                                          "uid":  "prometheus"
+                                      },
+                       "gridPos":  {
+                                       "y":  0,
+                                       "w":  12,
+                                       "h":  8,
+                                       "x":  0
+                                   },
+                       "fieldConfig":  {
+                                           "defaults":  {
+                                                            "custom":  {
+                                                                           "fillOpacity":  10,
+                                                                           "lineInterpolation":  "linear",
+                                                                           "spanNulls":  false,
+                                                                           "drawStyle":  "line",
+                                                                           "lineWidth":  1
+                                                                       },
+                                                            "color":  {
+                                                                          "mode":  "palette-classic"
+                                                                      },
+                                                            "min":  0,
+                                                            "unit":  "reqps"
+                                                        },
+                                           "overrides":  [
+
+                                                         ]
+                                       },
+                       "options":  {
+                                       "legend":  {
+                                                      "placement":  "bottom",
+                                                      "calcs":  [
+
+                                                                ],
+                                                      "displayMode":  "list"
+                                                  },
+                                       "tooltip":  {
+                                                       "sort":  "none",
+                                                       "mode":  "multi"
+                                                   }
+                                   },
+                       "targets":  [
+                                       {
+                                           "legendFormat":  "Requests / second",
+                                           "expr":  "sum(rate(http_server_requests_seconds_count{job=\"spring-boot\",uri=\"/work\"}[$__rate_interval]))",
+                                           "refId":  "A",
+                                           "datasource":  {
+                                                              "type":  "prometheus",
+                                                              "uid":  "prometheus"
+                                                          },
+                                           "editorMode":  "code",
+                                           "range":  true
+                                       }
+                                   ]
+                   },
+                   {
+                       "id":  6,
+                       "type":  "timeseries",
+                       "title":  "/work average response time",
+                       "datasource":  {
+                                          "type":  "prometheus",
+                                          "uid":  "prometheus"
+                                      },
+                       "gridPos":  {
+                                       "y":  0,
+                                       "w":  12,
+                                       "h":  8,
+                                       "x":  12
+                                   },
+                       "fieldConfig":  {
+                                           "defaults":  {
+                                                            "custom":  {
+                                                                           "fillOpacity":  10,
+                                                                           "lineInterpolation":  "linear",
+                                                                           "spanNulls":  false,
+                                                                           "drawStyle":  "line",
+                                                                           "lineWidth":  1
+                                                                       },
+                                                            "color":  {
+                                                                          "mode":  "palette-classic"
+                                                                      },
+                                                            "min":  0,
+                                                            "unit":  "ms"
+                                                        },
+                                           "overrides":  [
+
+                                                         ]
+                                       },
+                       "options":  {
+                                       "legend":  {
+                                                      "placement":  "bottom",
+                                                      "calcs":  [
+
+                                                                ],
+                                                      "displayMode":  "list"
+                                                  },
+                                       "tooltip":  {
+                                                       "sort":  "none",
+                                                       "mode":  "multi"
+                                                   }
+                                   },
+                       "targets":  [
+                                       {
+                                           "legendFormat":  "Average response time",
+                                           "expr":  "1000 * sum(rate(http_server_requests_seconds_sum{job=\"spring-boot\",uri=\"/work\"}[$__rate_interval])) / sum(rate(http_server_requests_seconds_count{job=\"spring-boot\",uri=\"/work\"}[$__rate_interval]))",
+                                           "refId":  "A",
+                                           "datasource":  {
+                                                              "type":  "prometheus",
+                                                              "uid":  "prometheus"
+                                                          },
+                                           "editorMode":  "code",
+                                           "range":  true
+                                       }
+                                   ]
+                   }
+               ]
+}
